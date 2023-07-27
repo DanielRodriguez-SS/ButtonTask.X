@@ -16,8 +16,12 @@ void APP_BUTTON_A_Init(void){
     app_button_a_data.debounce_count = 0;
 }
 
-// App State Machine Description
+// Function to run when Button A is Pushed
+void when_button_a_pushed(void){
+    LedA_Toggle();
+}
 
+// State Machine Description and Behaviour App 
 void APP_BUTTON_A_Tasks(void){
     switch(app_button_a_data.state){
         case APP_BUTTON_A_STATE_INIT:
@@ -30,7 +34,7 @@ void APP_BUTTON_A_Tasks(void){
             break;
         
         case APP_BUTTON_A_STATE_HIGH:
-            if (ButtonA_GetValue == 0){
+            if (ButtonA_GetValue() == 0){
                 app_button_a_data.state = APP_BUTTON_A_STATE_DEBOUNCE;
                 app_button_a_data.debounce_count = 0;
             }
@@ -38,12 +42,13 @@ void APP_BUTTON_A_Tasks(void){
         
         case APP_BUTTON_A_STATE_DEBOUNCE:
             if (app_button_a_data.debounce_count >= 20){
-                if (ButtonA_GetValue == 0){
+                if (ButtonA_GetValue() == 0){
                     app_button_a_data.state = APP_BUTTON_A_STATE_LOW;
                 }
                 else{
                     // A valid key-press happens here
                     app_button_a_data.state = APP_BUTTON_A_STATE_HIGH;
+                    when_button_a_pushed();
                 }       
             }
             break;

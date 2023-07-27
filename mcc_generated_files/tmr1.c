@@ -50,6 +50,7 @@
 
 #include <xc.h>
 #include "tmr1.h"
+#include "../app_buttonA.h"
 
 /**
   Section: Global Variables Definitions
@@ -175,7 +176,9 @@ void TMR1_ISR(void)
 
 void TMR1_CallBack(void)
 {
-    // Add your custom callback code here
+    // Add one to counter every 1.0 ms
+    app_button_a_data.debounce_count++;
+    
     if(TMR1_InterruptHandler)
     {
         TMR1_InterruptHandler();
