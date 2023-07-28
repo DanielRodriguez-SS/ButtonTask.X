@@ -43,7 +43,11 @@ Using the Pin manager, set RC4 as input (push button) and RC5 as output (LED)
 On Easy Setup custom the pin names, so they would be more readable in your code
 ![Pin_names](/screenshots/customPinNames.png)
 
+Generate the code files that will describe pins configuration
+![Gen_code_files](/screenshots/generateFiles.png)
 
+Go to **Project** tab and verify that files have been generated
+![verify_files](/screenshots/codeGenForPins.png)
 
 
 
