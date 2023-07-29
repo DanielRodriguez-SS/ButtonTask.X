@@ -22,6 +22,8 @@ Pick a name for your project and choose folder where you want to store it locall
 ![name_project](/screenshots/name_prject_select_location.png)
 
 ### Peripherals configuration
+![Circuit](/screenshots/circuitButtonTask.svg)
+
 Once we have created our project, we need to configure our hardware peripherals, in this case we first will need to configure an input for our push button and an output of the LED.
 - Pin configuration
 
@@ -49,33 +51,10 @@ Generate the code files that will describe pins configuration
 Go to **Project** tab and verify that files have been generated
 ![verify_files](/screenshots/codeGenForPins.png)
 
+- Configure a Timer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+For this project we will need to configure a timer TMR1 and use an Interrupt to set up a counter that will measure a 20 ms delay for button debounce
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+flowchart LR
+   A -- text
 ```
