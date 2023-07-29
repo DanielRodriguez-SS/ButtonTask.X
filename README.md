@@ -90,6 +90,12 @@ Verify code has been created for timer1
 
 ### Code Planing
 #### Key Press Operation
-**Denouncing** is a common issue encountered when working with mechanical buttons or switches, which occues duet to the inherent nature of the button's physical contacts. When a button is pressed or released, the contacts may not make a clean, immediate transition from one state to another. Instead, they can bounce back and forth for a very short period before finally setting in a stable state. This bouncing action can result in multiple rapid state changes, which can be problematic in electronic circuits that relay in the button's state to trigger actions.
+**Denouncing** is a common issue encountered when working with mechanical buttons or switches, which ccurs due to the inherent nature of the button's physical contacts. When a button is pressed or released, the contacts may not make a clean, immediate transition from one state to another. Instead, they can bounce back and forth for a very short period before finally setting in a stable state. This bouncing action can result in multiple rapid state changes, which can be problematic in electronic circuits that relay in the button's state to trigger actions.
 
 ![keyStateOp](/screenshots/KeyStateOp.svg)
+
+#### Software Debouncing Solution
+This approach involves implementing debouncing algorithms in software to handle the button input. One of the simplest software techniques is called *delay-based debouncing*, where the code introduces a short delay (usually a few milisecons) after a button press is detected, during which it ignores any further chnages in the button state. This allows the button's bouncing to settle before considering the input again.
+
+#### State Machine Implementation for key debouncing
+![KeyPressMachine](/screenshots/KeyStateMachine.svg)
