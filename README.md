@@ -1,7 +1,7 @@
 # Embedded C with Microchip MPLABX
 ## Project Name: ButtonTask.X
 On this project we will implement a system using a chip **PIC16F18466** that will be able to get a trigger signal from a *push button* to handle a task, in this case, that task will be *toggling an LED*
-### Setting the MPLABX project
+### Setting up project on MPLABX
 - Create a new project
 
 ![new_project](/screenshots/create_new_project.png)
@@ -58,3 +58,38 @@ For this project we will need to configure a timer TMR1 and use an Interrupt to 
 **TMR1 Operation**
 
 ![tmr1_op](/screenshots/tmr1Operatio.svg)
+
+In 1ms interrupt, increment count
+
+#### Why Interrups?
+
+* Allows immediate service of peripherals
+* Time base events get immediate service
+* After interrupt normal CPU functions continue
+
+Find TMR1 on *Device Resources*   
+![Setup_timer](/screenshots/findTimer1.png)
+
+Add TMER1 peripheral to the project
+
+![add_timer](/screenshots/addTimer1.png)
+
+Using *Easy Setup* set:
+* - [x] Enable Timer Interrupt
+* Timer Period: *1.0 ms*
+* Clock Source: *FOSC/4*
+* Callback Function Rate: *1*
+
+![set_timer](/screenshots/setTimer.png)
+
+Generate Code
+![code_timer](/screenshots/genCodeTimer.png)
+
+Verify code has been created for timer1
+![verify_timer_code](/screenshots/timer1CodeVerify.png)
+
+### Code Planing
+#### Key Press Operation
+**Denouncing** is a common issue encountered when working with mechanical buttons or switches, which occues duet to the inherent nature of the button's physical contacts. When a button is pressed or released, the contacts may not make a clean, immediate transition from one state to another. Instead, they can bounce back and forth for a very short period before finally setting in a stable state. This bouncing action can result in multiple rapid state changes, which can be problematic in electronic circuits that relay in the button's state to trigger actions.
+
+![keyStateOp](/screenshots/KeyStateOp.svg)
