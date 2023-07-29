@@ -54,7 +54,7 @@ Go to **Project** tab and verify that files have been generated
 - Configure a Timer
 
 For this project we will need to configure a timer TMR1 and use an Interrupt to set up a counter that will measure a 20 ms delay for button debounce
-```mermaid
-flowchart LR
-   A -- text
-```
+
+**TMR1 Operation**
+
+![tmr1_op](/screenshots/tmr1Operatio.svg)
