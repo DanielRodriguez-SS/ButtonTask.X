@@ -99,3 +99,95 @@ This approach involves implementing debouncing algorithms in software to handle 
 
 #### State Machine Implementation for key debouncing
 ![KeyPressMachine](/screenshots/KeyStateMachine.svg)
+
+### Start C Coding
+#### Creating *app_buttonA.h* file
+Go to *Projects* and right click under *Header Files*, select *New* and *header.h*
+
+![New_H_File](/screenshots/addNewHfile.png)
+
+Provide name for your .h file app and click *Finish*, in this case we will use *app_buttonA*
+
+![Name_h_file](/screenshots/buttonA_Hfile.png)
+
+Remove or clean all content on the file just created and lets start!
+
+Include the *header guards*
+```
+#ifndef APP_BUTTON_A_H
+#define	APP_BUTTON_A_H
+```
+Include standard libraries
+```
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+```
+Define the application states
+```
+typedef enum{
+    APP_BUTTON_A_STATE_INIT = 0,
+    APP_BUTTON_A_STATE_HIGH = 1, 
+    APP_BUTTON_A_STATE_DEBOUNCE = 2,
+    APP_BUTTON_A_STATE_LOW = 3 
+}APP_BUTTON_A_STATES;
+```
+Define a data structure to be used on your application
+```
+typedef struct{
+    APP_BUTTON_A_STATES state;
+    int debounce_count;
+}APP_BUTTON_A_DATA;
+extern APP_BUTTON_A_DATA app_button_a_data;
+```
+Declare app's functions
+```
+void APP_BUTTON_A_Init(void);
+void APP_BUTTON_A_Tasks(void);
+```
+End file
+```
+#endif
+```
+Your app_buttonA.h file should look like this:
+```
+/* 
+ * File:   
+ * Author: 
+ * Comments:
+ * Revision history: 
+ */
+
+// Include Header Guards
+#ifndef APP_BUTTON_A_H
+#define	APP_BUTTON_A_H
+
+// Include Standard Libraries
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+
+// Define Application States
+typedef enum{
+    APP_BUTTON_A_STATE_INIT = 0,
+    APP_BUTTON_A_STATE_HIGH = 1, 
+    APP_BUTTON_A_STATE_DEBOUNCE = 2,
+    APP_BUTTON_A_STATE_LOW = 3 
+}APP_BUTTON_A_STATES;
+
+// Define Data for Application
+typedef struct{
+    APP_BUTTON_A_STATES state;
+    int debounce_count;
+}APP_BUTTON_A_DATA;
+extern APP_BUTTON_A_DATA app_button_a_data;
+
+// Functions Declarations
+void APP_BUTTON_A_Init(void);
+void APP_BUTTON_A_Tasks(void);
+
+#endif
+```
+![Hfile](/screenshots/headerFileAppButtonA.png)
