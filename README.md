@@ -191,3 +191,33 @@ void APP_BUTTON_A_Tasks(void);
 #endif
 ```
 ![Hfile](/screenshots/headerFileAppButtonA.png)
+
+Go to *Projects* and right click under *Source Files*, select *New* and *main.c*, provide the same name you used for the .h file and click *Finish*
+![new_c_file](/screenshots/appButton_Cfile.png)
+
+Remove or clean all content on the file just created and lets start!
+
+Include the header file we created previously as well as the mcc.h file the system created for us when we configured the pheripherals
+```
+#include "app_buttonA.h"
+#include "mcc_generated_files/mcc.h"
+```
+Declare app's data
+```
+APP_BUTTON_A_DATA app_button_a_data;
+```
+Write function to initialize the app
+```
+void APP_BUTTON_A_Init(void){
+    app_button_a_data.state = APP_BUTTON_A_STATE_INIT;
+    app_button_a_data.debounce_count = 0;
+}
+```
+Write a function that describes what happens when the push button or KEY is pressed, in this case we want to toggle the *LedA*
+```
+void when_button_a_pushed(void){
+    LedA_Toggle();
+}
+```
+[!NOTE]
+LedA_Toggle() is a existing function that was created by the system when we generated code for our peripherials
