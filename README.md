@@ -191,7 +191,7 @@ void APP_BUTTON_A_Tasks(void);
 #endif
 ```
 ![Hfile](/screenshots/headerFileAppButtonA.png)
-
+#### Creating *app_buttonA.c* file
 Go to *Projects* and right click under *Source Files*, select *New* and *main.c*, provide the same name you used for the .h file and click *Finish*
 ![new_c_file](/screenshots/appButton_Cfile.png)
 
@@ -219,5 +219,103 @@ void when_button_a_pushed(void){
     LedA_Toggle();
 }
 ```
-[!NOTE]
-LedA_Toggle() is a existing function that was created by the system when we generated code for our peripherials
+*LedA_Toggle()* is a existing function that was created by the system when we generated code for our peripherials
+
+Describe the state machine behaviour in C
+```c
+void APP_BUTTON_A_Tasks(void){
+    switch(app_button_a_data.state){
+        case APP_BUTTON_A_STATE_INIT:
+            if (ButtonA_GetValue() == 1){
+                app_button_a_data.state = APP_BUTTON_A_STATE_HIGH;
+            }
+            else{
+                app_button_a_data.state = APP_BUTTON_A_STATE_LOW;
+            }
+            break;
+        
+        case APP_BUTTON_A_STATE_HIGH:
+            if (ButtonA_GetValue() == 0){
+                app_button_a_data.state = APP_BUTTON_A_STATE_DEBOUNCE;
+                app_button_a_data.debounce_count = 0;
+            }
+            break;
+        
+        case APP_BUTTON_A_STATE_DEBOUNCE:
+            if (app_button_a_data.debounce_count >= 20){
+                if (ButtonA_GetValue() == 0){
+                    app_button_a_data.state = APP_BUTTON_A_STATE_LOW;
+                }
+                else{
+                    // A valid key-press happens here
+                    app_button_a_data.state = APP_BUTTON_A_STATE_HIGH;
+                    when_button_a_pushed();
+                }       
+            }
+            break;
+        
+        case APP_BUTTON_A_STATE_LOW:
+            if (ButtonA_GetValue() == 1){
+                app_button_a_data.state = APP_BUTTON_A_STATE_DEBOUNCE;
+                app_button_a_data.debounce_count = 0;
+            }
+            break;
+    }
+}
+```
+Save changes on *app_buttonA.c*
+
+#### Modifing *tmr1.c* file
+Now, lets use that Timer interruption we configure previously. Go to *Projects* Tab and find the *tmr1.c* file on *Source Files* folder and include *app_buttonA.h* file
+```c
+#include "../app_buttonA.h"
+```
+![tmr1_file](/screenshots/tmr1CfileIncludeFile.png)
+Scroll down until you find the *tmr1_callBack* function, and increment our counter everytime the function gets called, in this case this function will get called every 1 ms as that's how we configured in using MCC
+```c
+// Add one to counter every 1.0 ms
+app_button_a_data.debounce_count++;
+```
+![modify_tmr1File](/screenshots/modifyTmr1CFile.png)
+#### Modifing *main.c* file
+Lets go to main.c and complement it with the code we have wrote
+1. Include *app_buttonA.h*
+```c
+#include "app_buttonA.h"
+```
+![app_hFiletoManin](/screenshots/appHFileIntoMain.png)
+
+2. Initialize the app with the function we wrote to do so on *app_buttonA.c* file
+```c
+APP_BUTTON_A_Init();
+```
+![init_app](/screenshots/initAppOnMain.png)
+
+3. Enable Interrups 
+
+When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits, to do that just uncomment the functions that enable it.
+```c
+// Enable the Global Interrupts
+INTERRUPT_GlobalInterruptEnable();
+
+// Enable the Peripheral Interrupts
+INTERRUPT_PeripheralInterruptEnable();
+```
+![enabelInterrups](/screenshots/enableInterrupt.png)
+
+4. Add the app function that take cares of our button task
+```c
+// Add your application code
+APP_BUTTON_A_Tasks();
+```
+![addAppToMain](/screenshots/addAppToMain.png)
+
+5. Build and debug
+
+Click on *Clean and Build* Button
+![cleanBuild](/screenshots/cleanBuild.png)
+
+If successful click on *Debug Main Project* to test the program on your debug Tool
+![debugProject](/screenshots/DebbugingWithTool.png)
+Wnen running, you should be able to tets, pushing a **button** on your DevTool and seeing a **led** going on and off.
+
