@@ -113,19 +113,19 @@ Provide name for your .h file app and click *Finish*, in this case we will use *
 Remove or clean all content on the file just created and lets start!
 
 Include the *header guards*
-```
+```c
 #ifndef APP_BUTTON_A_H
 #define	APP_BUTTON_A_H
 ```
 Include standard libraries
-```
+```c
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 ```
 Define the application states
-```
+```c
 typedef enum{
     APP_BUTTON_A_STATE_INIT = 0,
     APP_BUTTON_A_STATE_HIGH = 1, 
@@ -134,7 +134,7 @@ typedef enum{
 }APP_BUTTON_A_STATES;
 ```
 Define a data structure to be used on your application
-```
+```c
 typedef struct{
     APP_BUTTON_A_STATES state;
     int debounce_count;
@@ -142,16 +142,16 @@ typedef struct{
 extern APP_BUTTON_A_DATA app_button_a_data;
 ```
 Declare app's functions
-```
+```c
 void APP_BUTTON_A_Init(void);
 void APP_BUTTON_A_Tasks(void);
 ```
 End file
-```
+```c
 #endif
 ```
 Your app_buttonA.h file should look like this:
-```
+```c
 /* 
  * File:   
  * Author: 
@@ -198,23 +198,23 @@ Go to *Projects* and right click under *Source Files*, select *New* and *main.c*
 Remove or clean all content on the file just created and lets start!
 
 Include the header file we created previously as well as the mcc.h file the system created for us when we configured the pheripherals
-```
+```c
 #include "app_buttonA.h"
 #include "mcc_generated_files/mcc.h"
 ```
 Declare app's data
-```
+```c
 APP_BUTTON_A_DATA app_button_a_data;
 ```
 Write function to initialize the app
-```
+```c
 void APP_BUTTON_A_Init(void){
     app_button_a_data.state = APP_BUTTON_A_STATE_INIT;
     app_button_a_data.debounce_count = 0;
 }
 ```
 Write a function that describes what happens when the push button or KEY is pressed, in this case we want to toggle the *LedA*
-```
+```c
 void when_button_a_pushed(void){
     LedA_Toggle();
 }
