@@ -264,6 +264,7 @@ void APP_BUTTON_A_Tasks(void){
 }
 ```
 Save changes on *app_buttonA.c*
+![appC](/screenshots/CfilePart3.png)
 
 #### Modifing *tmr1.c* file
 Now, lets use that Timer interruption we configure previously. Go to *Projects* Tab and find the *tmr1.c* file on *Source Files* folder and include *app_buttonA.h* file
@@ -317,5 +318,5 @@ Click on *Clean and Build* Button
 
 If successful click on *Debug Main Project* to test the program on your debug Tool
 ![debugProject](/screenshots/DebbugingWithTool.png)
-Wnen running, you should be able to tets, pushing a **button** on your DevTool and seeing a **led** going on and off.
+Wnen running, you should be able to tets, pushing a **button** on your DevTool and seeing a **led** going ON and OFF.
 
